@@ -39,8 +39,6 @@ ${line02} ${pad}[${success}] Gateway
 ${line03}${dev ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
 		`.trim()
         );
-
-        console.log('\n\n\n\n', ApplicationCommandRegistries.registries)
     }
 
     private printStoreDebugInformation() {
