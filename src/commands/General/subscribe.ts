@@ -64,7 +64,7 @@ export class UserCommand extends Command {
 							.setRequired(true)
 					),
 
-			{ idHints: ['944349656262017024'] }
+			{ idHints: ['944349656262017024'], guildIds: ['561218560467271681'] }
 		);
 	}
 }

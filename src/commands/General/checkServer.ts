@@ -7,9 +7,6 @@ import { fetch, FetchResultTypes } from '@sapphire/fetch';
 @ApplyOptions<CommandOptions>({
 	name: 'checkServer',
 	description: 'A basic command with some subcommands',
-	chatInputCommand: {
-		register: true
-	}
 })
 export class checkServerCommand extends Command {
 	async chatInputRun(interaction: CommandInteraction) {
@@ -45,7 +42,7 @@ export class checkServerCommand extends Command {
 							])
 							.setRequired(true)
 					),
-			{ idHints: ['944252998316621864'] }
+			{ idHints: ['944423305039999026'], guildIds: ['561218560467271681'] }
 		);
 	}
 }
