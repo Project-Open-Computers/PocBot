@@ -6,7 +6,7 @@ import { fetch, FetchResultTypes } from '@sapphire/fetch';
 
 @ApplyOptions<CommandOptions>({
 	name: 'checkServer',
-	description: 'A basic command with some subcommands',
+	description: 'A basic command with some subcommands'
 })
 export class checkServerCommand extends Command {
 	async chatInputRun(interaction: CommandInteraction) {
