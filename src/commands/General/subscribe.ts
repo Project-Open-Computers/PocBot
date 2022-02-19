@@ -9,9 +9,10 @@ import type { CommandInteraction } from 'discord.js';
 export class UserCommand extends Command {
 	async chatInputRun(interaction: CommandInteraction) {
 		const action = interaction.options.getString('action');
+		const roleToFetch = interaction.options.getString('role');
 
 		// Check roles of user and search for role ID
-		const role = await interaction.guild?.roles.cache.find((r) => r.id === '805078371725869066');
+		const role = await interaction.guild?.roles.cache.find((r) => r.id === roleToFetch);
 		if (role === undefined) {
 			throw new Error('NEWS Role not found');
 		}
@@ -51,7 +52,18 @@ export class UserCommand extends Command {
 								['Unsubscribe from updates (news)', 'unsubscribe']
 							])
 							.setRequired(true)
+					)
+					.addStringOption((option) =>
+						option
+							.setName('role')
+							.setDescription('The role to subscribe/ unsubscribe to')
+							.setChoices([
+								['Server updates (News Letter)', '805078371725869066'],
+								['Technical updates (Devlog Subscriber)', '944371601560969326']
+							])
+							.setRequired(true)
 					),
+
 			{ idHints: ['944349656262017024'] }
 		);
 	}
