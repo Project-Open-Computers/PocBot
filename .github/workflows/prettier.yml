@@ -8,16 +8,11 @@ on:
       - main
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-    name: Build and test
-    steps:
-      - uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1
   prettier:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: bahmutov/npm-install@v1
       - name: Checkout
         uses: actions/checkout@v2
         with:
