@@ -26,7 +26,6 @@ export class checkServerCommand extends Command {
 	}
 
 	registerApplicationCommands(registry: ApplicationCommandRegistry) {
-		console.log('called registerApplicationCommands', this.name);
 		registry.registerChatInputCommand(
 			(builder) =>
 				builder
