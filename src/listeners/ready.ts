@@ -17,8 +17,6 @@ export class UserEvent extends Listener {
 	public run() {
 		this.printBanner();
 		this.printStoreDebugInformation();
-
-		console.log(this.container.stores.get('commands'));
 	}
 
 	private printBanner() {

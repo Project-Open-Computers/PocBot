@@ -3,7 +3,7 @@ import { ApplicationCommandRegistries, LogLevel, RegisterBehavior, SapphireClien
 
 const client = new SapphireClient({
 	logger: {
-		level: LogLevel.Debug
+		level: LogLevel.Info
 	},
 	shards: 'auto',
 	intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_INTEGRATIONS'],

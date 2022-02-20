@@ -64,7 +64,7 @@ export class SubscribeCommand extends Command {
 							.setRequired(true)
 					),
 
-			{ guildIds: ['561218560467271681'] }
+			{ idHints: ['944769715836948520'], guildIds: ['561218560467271681'] }
 		);
 	}
 }
