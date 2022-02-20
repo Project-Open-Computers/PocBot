@@ -6,7 +6,7 @@ import type { CommandInteraction } from 'discord.js';
 	name: 'subscribe',
 	description: 'Lets you subscribe to updates.'
 })
-export class UserCommand extends Command {
+export class SubscribeCommand extends Command {
 	async chatInputRun(interaction: CommandInteraction) {
 		const action = interaction.options.getString('action');
 		const roleToFetch = interaction.options.getString('role');
@@ -14,7 +14,7 @@ export class UserCommand extends Command {
 		// Check roles of user and search for role ID
 		const role = await interaction.guild?.roles.cache.find((r) => r.id === roleToFetch);
 		if (role === undefined) {
-			throw new Error('NEWS Role not found');
+			throw new Error('Role not found');
 		}
 		const user = await interaction.guild?.members.fetch(interaction.user.id);
 		const userHasNewsRole = user?.roles.cache.has(role?.id);
@@ -64,7 +64,7 @@ export class UserCommand extends Command {
 							.setRequired(true)
 					),
 
-			{ idHints: ['944349656262017024'], guildIds: ['561218560467271681'] }
+			{guildIds: ['561218560467271681'] }
 		);
 	}
 }
