@@ -21,18 +21,18 @@ export class SubscribeCommand extends Command {
 		switch (action) {
 			case 'subscribe':
 				if (userHasNewsRole) {
-					await interaction.reply('You are already subscribed to news');
+					await interaction.reply(`You are already subscribed to ${role.name}`);
 				}
 				user?.roles.add(role);
-				await interaction.reply('You are now subscribed to news');
+				await interaction.reply(`You are now subscribed to ${role.name}`);
 				break;
 
 			case 'unsubscribe':
 				if (!userHasNewsRole) {
-					await interaction.reply('You are not subscribed to news');
+					await interaction.reply(`You are not subscribed to ${role.name}`);
 				}
 				user?.roles.remove(role);
-				await interaction.reply('You have been unsubscribed from news');
+				await interaction.reply(`You have been unsubscribed from ${role.name}`);
 				break;
 		}
 	}
