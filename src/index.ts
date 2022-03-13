@@ -10,10 +10,11 @@ const client = new SapphireClient({
 	loadDefaultErrorListeners: true
 });
 
-const main = async () => {
+(async () => {
 	try {
 		client.logger.info('Logging in');
 		await client.login();
+		ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
 		client.logger.info(
 			`Logged in! \n Invite Link: ${client.generateInvite({
 				scopes: ['applications.commands', 'bot'],
@@ -25,8 +26,4 @@ const main = async () => {
 		client.destroy();
 		process.exit(1);
 	}
-};
-
-ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
-
-main();
+})();
