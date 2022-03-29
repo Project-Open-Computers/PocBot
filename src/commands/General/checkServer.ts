@@ -14,8 +14,8 @@ export class checkServerCommand extends Command {
 		this.container.logger.info(`Checking server ${serverToCheck}.bloodcoffeegames.com`);
 		const serverData = await fetch<ServerData>(`https://api.mcsrvstat.us/2/${serverToCheck}.bloodcoffeegames.com`, FetchResultTypes.JSON);
 
-		const serverInfoEmbed = new MessageEmbed() //
-			.setTitle('Here Is The Server Status')
+		const serverInfoEmbed = new MessageEmbed()
+			.setTitle(`Server Info for ${serverToCheck}`)
 			.addField('Status: ', `The server is currently ${serverData.online ? 'online' : 'offline'}`, true)
 			.addField('Total Online Players: ', serverData?.players?.online ? serverData?.players?.online.toString() : 'None', false)
 			.addField('MOTD: ', serverData?.motd?.clean ? serverData?.motd?.clean.join(' ') : 'Server is offline!', true)
