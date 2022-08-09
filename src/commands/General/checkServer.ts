@@ -1,6 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { ApplicationCommandRegistry, Command, CommandOptions } from '@sapphire/framework';
-import type { CommandInteraction } from 'discord.js';
+import { Command, CommandOptions } from '@sapphire/framework';
 import { MessageEmbed } from 'discord.js';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 
@@ -9,23 +8,40 @@ import { fetch, FetchResultTypes } from '@sapphire/fetch';
 	description: 'A basic command with some subcommands'
 })
 export class checkServerCommand extends Command {
-	async chatInputRun(interaction: CommandInteraction) {
+	async chatInputRun(interaction: Command.ChatInputInteraction) {
 		const serverToCheck = interaction.options.getString('server');
 		this.container.logger.info(`Checking server ${serverToCheck}.bloodcoffeegames.com`);
 		const serverData = await fetch<ServerData>(`https://api.mcsrvstat.us/2/${serverToCheck}.bloodcoffeegames.com`, FetchResultTypes.JSON);
 
 		const serverInfoEmbed = new MessageEmbed()
 			.setTitle(`Server Info for ${serverToCheck}`)
-			.addField('Status: ', `The server is currently ${serverData.online ? 'online' : 'offline'}`, true)
-			.addField('Total Online Players: ', serverData?.players?.online ? serverData?.players?.online.toString() : 'None', false)
-			.addField('MOTD: ', serverData?.motd?.clean ? serverData?.motd?.clean.join(' ') : 'Server is offline!', true)
-			.addField('Online Players: ', serverData?.players?.list?.length > 0 ? serverData.players.list.join(', \n') : 'None', false)
+			.addFields(
+				[
+					{
+						name: 'Status: ',
+						value: `The server is currently ${serverData.online ? 'online' : 'offline'}`
+					},
+					{
+						name: 'Total Online Players: ',
+						value: serverData?.players?.online ? serverData?.players?.online.toString() : 'None'
+					},
+					{
+						name: 'MOTD: ',
+						value: serverData?.motd?.clean ? serverData?.motd?.clean.join(' ') : 'Server is offline!'
+					},
+					{
+						name: 'Online Players: ',
+						value: serverData?.players?.list?.length > 0 ? serverData.players.list.join(', \n') : 'None'
+					}
+				]
+				
+			)
 			.setColor('BLUE');
 
 		return interaction.reply({ embeds: [serverInfoEmbed] });
 	}
 
-	registerApplicationCommands(registry: ApplicationCommandRegistry) {
+	registerApplicationCommands(registry: Command.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
 				builder
@@ -35,10 +51,16 @@ export class checkServerCommand extends Command {
 						option
 							.setName('server')
 							.setDescription('The server to check')
-							.setChoices([
-								['poc3.bloodcoffeegames.com', 'poc3'],
-								['poc3c.bloodcoffeegames.com', 'poc3c']
-							])
+							.setChoices(
+								{
+									name: 'Project OpenComputers 3',
+									value: 'poc3.bloodcoffeegames.com'
+								},
+								{
+									name: 'Warpy',
+									value: 'warpy.namelessserver.net'
+								}
+							)
 							.setRequired(true)
 					),
 			{ idHints: ['944423305039999026'], guildIds: ['561218560467271681'] }

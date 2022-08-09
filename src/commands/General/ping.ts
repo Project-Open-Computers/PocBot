@@ -1,6 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { ApplicationCommandRegistry, Command, CommandOptions } from '@sapphire/framework';
-import type { CommandInteraction } from 'discord.js';
+import { Command, CommandOptions } from '@sapphire/framework';
 
 @ApplyOptions<CommandOptions>({
 	name: 'ping',
@@ -8,7 +7,7 @@ import type { CommandInteraction } from 'discord.js';
 	detailedDescription: 'ping'
 })
 export class PingCommand extends Command {
-	async chatInputRun(interaction: CommandInteraction) {
+	public override async chatInputRun(interaction: Command.ChatInputInteraction) {
 		await interaction.reply('Pinging...');
 		const content = `Pong! Bot Latency ${Math.round(this.container.client.ws.ping)}ms. API Latency ${
 			Date.now() - interaction.createdTimestamp
@@ -17,7 +16,7 @@ export class PingCommand extends Command {
 		return interaction.editReply(content);
 	}
 
-	registerApplicationCommands(registry: ApplicationCommandRegistry) {
+	registerApplicationCommands(registry: Command.Registry) {
 		registry.registerChatInputCommand((builder) => builder.setName(this.name).setDescription(this.description), {
 			idHints: ['561218560467271681'],
 			guildIds: ['561218560467271681']

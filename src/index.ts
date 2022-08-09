@@ -22,7 +22,7 @@ const client = new SapphireClient({
 			})}`
 		);
 	} catch (error) {
-		client.logger.fatal(error);
+		console.error(error);
 		client.destroy();
 		process.exit(1);
 	}

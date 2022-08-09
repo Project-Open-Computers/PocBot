@@ -1,18 +1,17 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { ApplicationCommandRegistry, Command, CommandOptions } from '@sapphire/framework';
-import type { CommandInteraction } from 'discord.js';
+import { Command, CommandOptions } from '@sapphire/framework';
 
 @ApplyOptions<CommandOptions>({
 	name: 'subscribe',
 	description: 'Lets you subscribe to updates.'
 })
 export class SubscribeCommand extends Command {
-	async chatInputRun(interaction: CommandInteraction) {
+	async chatInputRun(interaction: Command.ChatInputInteraction) {
 		const action = interaction.options.getString('action');
 		const roleToFetch = interaction.options.getString('role');
 
 		// Check roles of user and search for role ID
-		const role = await interaction.guild?.roles.cache.find((r) => r.id === roleToFetch);
+		const role = interaction.guild?.roles.cache.find((r) => r.id === roleToFetch);
 		if (role === undefined) {
 			throw new Error('Role not found');
 		}
@@ -23,21 +22,19 @@ export class SubscribeCommand extends Command {
 				if (userHasNewsRole) {
 					await interaction.reply(`You are already subscribed to ${role.name}`);
 				}
-				user?.roles.add(role);
-				await interaction.reply(`You are now subscribed to ${role.name}`);
-				break;
+				await user?.roles.add(role);
+				return interaction.reply(`You are now subscribed to ${role.name}`);
 
 			case 'unsubscribe':
 				if (!userHasNewsRole) {
 					await interaction.reply(`You are not subscribed to ${role.name}`);
 				}
-				user?.roles.remove(role);
-				await interaction.reply(`You have been unsubscribed from ${role.name}`);
-				break;
+				await user?.roles.remove(role);
+				return interaction.reply(`You have been unsubscribed from ${role.name}`);
 		}
 	}
 
-	registerApplicationCommands(registry: ApplicationCommandRegistry) {
+	registerApplicationCommands(registry: Command.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
 				builder
@@ -47,20 +44,20 @@ export class SubscribeCommand extends Command {
 						option
 							.setName('action')
 							.setDescription('Lets you subscribe/ unsubscribe to a updates')
-							.setChoices([
-								['Subscribe to updates (news)', 'subscribe'],
-								['Unsubscribe from updates (news)', 'unsubscribe']
-							])
+							.setChoices(
+								{ name: 'Subscribe to updates (news)', value: 'subscribe' },
+								{ name: 'Unsubscribe from updates (news)', value: 'unsubscribe' }
+							)
 							.setRequired(true)
 					)
 					.addStringOption((option) =>
 						option
 							.setName('role')
 							.setDescription('The role to subscribe/ unsubscribe to')
-							.setChoices([
-								['Server updates (News Letter)', '805078371725869066'],
-								['Technical updates (Devlog Subscriber)', '944371601560969326']
-							])
+							.setChoices(
+								{ name: 'Server updates (News Letter)', value: '805078371725869066' },
+								{ name: 'Technical updates (Devlog Subscriber)', value: '944371601560969326' }
+							)
 							.setRequired(true)
 					),
 

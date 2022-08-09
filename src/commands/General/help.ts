@@ -1,8 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { ApplicationCommandRegistry, Command, CommandOptions } from '@sapphire/framework';
-
-import type { CommandInteraction, MessageEmbed } from 'discord.js';
+import { Command, CommandOptions } from '@sapphire/framework';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
+import type { MessageEmbed } from 'discord.js';
 
 @ApplyOptions<CommandOptions>({
 	name: 'help',
@@ -10,7 +9,7 @@ import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 	detailedDescription: ''
 })
 export class StatsCommand extends Command {
-	chatInputRun(interaction: CommandInteraction) {
+	chatInputRun(interaction: Command.ChatInputInteraction) {
 		const commands = this.container.stores.get('commands');
 		const paginatedMessage = new PaginatedMessage();
 		paginatedMessage.addPageEmbed((embed: MessageEmbed) => {
@@ -20,7 +19,7 @@ export class StatsCommand extends Command {
 		return paginatedMessage.run(interaction);
 	}
 
-	registerApplicationCommands(registry: ApplicationCommandRegistry) {
+	registerApplicationCommands(registry: Command.Registry) {
 		registry.registerChatInputCommand(
 			{
 				name: this.name,
