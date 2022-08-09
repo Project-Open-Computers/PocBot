@@ -15,27 +15,24 @@ export class checkServerCommand extends Command {
 
 		const serverInfoEmbed = new MessageEmbed()
 			.setTitle(`Server Info for ${serverToCheck}`)
-			.addFields(
-				[
-					{
-						name: 'Status: ',
-						value: `The server is currently ${serverData.online ? 'online' : 'offline'}`
-					},
-					{
-						name: 'Total Online Players: ',
-						value: serverData?.players?.online ? serverData?.players?.online.toString() : 'None'
-					},
-					{
-						name: 'MOTD: ',
-						value: serverData?.motd?.clean ? serverData?.motd?.clean.join(' ') : 'Server is offline!'
-					},
-					{
-						name: 'Online Players: ',
-						value: serverData?.players?.list?.length > 0 ? serverData.players.list.join(', \n') : 'None'
-					}
-				]
-				
-			)
+			.addFields([
+				{
+					name: 'Status: ',
+					value: `The server is currently ${serverData.online ? 'online' : 'offline'}`
+				},
+				{
+					name: 'Total Online Players: ',
+					value: serverData?.players?.online ? serverData?.players?.online.toString() : 'None'
+				},
+				{
+					name: 'MOTD: ',
+					value: serverData?.motd?.clean ? serverData?.motd?.clean.join(' ') : 'Server is offline!'
+				},
+				{
+					name: 'Online Players: ',
+					value: serverData?.players?.list?.length > 0 ? serverData.players.list.join(', \n') : 'None'
+				}
+			])
 			.setColor('BLUE');
 
 		return interaction.reply({ embeds: [serverInfoEmbed] });
