@@ -8,7 +8,7 @@ const dev = process.env.NODE_ENV !== 'production';
 	event: Events.ClientReady,
 	once: true
 })
-export class UserEvent extends Listener<typeof Events.ClientReady>  {
+export class UserEvent extends Listener<typeof Events.ClientReady> {
 	private readonly style = dev ? yellow : blue;
 
 	public run() {
