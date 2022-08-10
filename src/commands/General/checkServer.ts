@@ -10,8 +10,8 @@ import { fetch, FetchResultTypes } from '@sapphire/fetch';
 export class checkServerCommand extends Command {
 	async chatInputRun(interaction: Command.ChatInputInteraction) {
 		const serverToCheck = interaction.options.getString('server');
-		this.container.logger.info(`Checking server ${serverToCheck}.bloodcoffeegames.com`);
-		const serverData = await fetch<ServerData>(`https://api.mcsrvstat.us/2/${serverToCheck}.bloodcoffeegames.com`, FetchResultTypes.JSON);
+		this.container.logger.info(`Checking ${serverToCheck}`);
+		const serverData = await fetch<ServerData>(`https://api.mcsrvstat.us/2/${serverToCheck}`, FetchResultTypes.JSON);
 
 		const serverInfoEmbed = new MessageEmbed()
 			.setTitle(`Server Info for ${serverToCheck}`)
@@ -51,7 +51,7 @@ export class checkServerCommand extends Command {
 							.setChoices(
 								{
 									name: 'Project OpenComputers 3',
-									value: 'poc3.bloodcoffeegames.com'
+									value: 'poc3.namelessserver.net'
 								},
 								{
 									name: 'Warpy',
