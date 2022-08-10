@@ -37,7 +37,7 @@ export class SubscribeCommand extends Subcommand {
 		const role = await this.fetchRole(interaction, roleToFetch);
 
 		const user = await interaction.guild?.members.fetch(interaction.user.id);
-		if (user?.roles.cache.has(role?.id)) return interaction.reply(`You are not subscribed to ${role.name}`);
+		if (!user?.roles.cache.has(role?.id)) return interaction.reply(`You are not subscribed to ${role.name}`);
 		await user?.roles.remove(role);
 		return interaction.reply(`You have been unsubscribed from ${role.name}`);
 	}
@@ -78,7 +78,6 @@ export class SubscribeCommand extends Subcommand {
 									.setRequired(true)
 							)
 					),
-
 			{ idHints: ['944769715836948520'], guildIds: ['561218560467271681'] }
 		);
 	}
