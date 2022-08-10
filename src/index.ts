@@ -12,10 +12,10 @@ const client = new SapphireClient({
 
 (async () => {
 	try {
-		client.logger.info('Logging in');
+		console.info('Logging in');
 		await client.login();
 		ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
-		client.logger.info(
+		console.info(
 			`Logged in! \n Invite Link: ${client.generateInvite({
 				scopes: ['applications.commands', 'bot'],
 				permissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'MANAGE_ROLES']

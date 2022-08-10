@@ -16,7 +16,7 @@ export class UserEvent extends Listener<typeof Events.ChatInputCommandSuccess> {
 		this.container.logger.debug(`${shard} - ${commandName} ${author} ${sentAt}`);
 	}
 
-	public onLoad() {
+	public override onLoad() {
 		this.enabled = (this.container.logger as Logger).level <= LogLevel.Debug;
 		return super.onLoad();
 	}

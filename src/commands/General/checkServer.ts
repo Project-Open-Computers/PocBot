@@ -8,7 +8,7 @@ import { fetch, FetchResultTypes } from '@sapphire/fetch';
 	description: 'A basic command with some subcommands'
 })
 export class checkServerCommand extends Command {
-	async chatInputRun(interaction: Command.ChatInputInteraction) {
+	public override async chatInputRun(interaction: Command.ChatInputInteraction) {
 		const serverToCheck = interaction.options.getString('server');
 		this.container.logger.info(`Checking ${serverToCheck}`);
 		const serverData = await fetch<ServerData>(`https://api.mcsrvstat.us/2/${serverToCheck}`, FetchResultTypes.JSON);
@@ -38,7 +38,7 @@ export class checkServerCommand extends Command {
 		return interaction.reply({ embeds: [serverInfoEmbed] });
 	}
 
-	registerApplicationCommands(registry: Command.Registry) {
+	public override registerApplicationCommands(registry: Command.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
 				builder

@@ -9,7 +9,7 @@ import type { MessageEmbed } from 'discord.js';
 	detailedDescription: ''
 })
 export class StatsCommand extends Command {
-	chatInputRun(interaction: Command.ChatInputInteraction) {
+	public override chatInputRun(interaction: Command.ChatInputInteraction) {
 		const commands = this.container.stores.get('commands');
 		const paginatedMessage = new PaginatedMessage();
 		paginatedMessage.addPageEmbed((embed: MessageEmbed) => {
@@ -19,7 +19,7 @@ export class StatsCommand extends Command {
 		return paginatedMessage.run(interaction);
 	}
 
-	registerApplicationCommands(registry: Command.Registry) {
+	public override registerApplicationCommands(registry: Command.Registry) {
 		registry.registerChatInputCommand(
 			{
 				name: this.name,
