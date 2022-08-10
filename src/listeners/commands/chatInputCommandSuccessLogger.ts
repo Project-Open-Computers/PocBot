@@ -1,17 +1,13 @@
-import type { ListenerOptions, PieceContext } from '@sapphire/framework';
+import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommandSuccessPayload, Command, Events, Listener, LogLevel } from '@sapphire/framework';
 import type { Logger } from '@sapphire/plugin-logger';
 import { cyan } from 'colorette';
 import type { Guild, User } from 'discord.js';
 
+@ApplyOptions<Listener.Options>({
+	event: Events.ChatInputCommandSuccess
+})
 export class UserEvent extends Listener<typeof Events.ChatInputCommandSuccess> {
-	public constructor(context: PieceContext, options?: ListenerOptions) {
-		super(context, {
-			...options,
-			event: Events.ChatInputCommandSuccess
-		});
-	}
-
 	public run({ interaction, command }: ChatInputCommandSuccessPayload) {
 		const shard = this.shard(interaction.guild?.shardId ?? 0);
 		const commandName = this.command(command);
