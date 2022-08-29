@@ -1,4 +1,4 @@
-import './lib/setup';
+import './lib/setup.js';
 import { ApplicationCommandRegistries, LogLevel, RegisterBehavior, SapphireClient } from '@sapphire/framework';
 
 const client = new SapphireClient({

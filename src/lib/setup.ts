@@ -7,9 +7,10 @@ import * as colorette from 'colorette';
 import { config } from 'dotenv-cra';
 import { join } from 'path';
 import { inspect } from 'util';
-import { srcDir } from './constants';
+import { srcDir } from './constants.js';
 
 // Read env var
+// @ts-ignore This works just types being wonky
 config({ path: join(srcDir, '.env') });
 
 // Set default inspection depth
